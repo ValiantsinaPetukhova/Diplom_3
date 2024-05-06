@@ -10,7 +10,7 @@ from pages.orders_feed_page import OrdersFeedPage
 @allure.feature('Проверка основного функционала')
 class TestMainPage:
     @allure.title('Переход по клику на «Конструктор»')
-    @allure.description('Проверка перехода на страницу Конструктора')
+    @allure.description('Проверка перехода на страницу Конструктора на главной странице')
     def test_go_to_constructor_page(self, driver):
         main_page = MainPage(driver)
         main_page.open(main_page.url)
@@ -28,7 +28,7 @@ class TestMainPage:
 
         assert orders_feed_page.check_orders_feed_page_is_visible()
 
-    @allure.title('Клик по ингридиенту')
+    @allure.title('Появление окна с деталями при клике на ингридиент')
     @allure.description('Проверка если кликнуть на ингредиент, появится всплывающее окно с деталями. '
                         'Проверяется по 1 ингридиенту из разделов "Булки", "Соусы", "Начинки"')
     @pytest.mark.parametrize('ingredient', TestData.ingredients)
@@ -50,8 +50,8 @@ class TestMainPage:
 
         assert main_page.check_ingredient_details_is_invisible()
 
-    @allure.title('Добавление ингридиента в заказ')
-    @allure.description('Проверка, что при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается')
+    @allure.title('Проверка, что при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается')
+    @allure.description('Проверяется для трех типов: булки, соусы, начинки')
     @pytest.mark.parametrize('ingredient_type, expected_counter', TestData.ingredient_type)
     def test_add_ingredient_to_order(self, driver, ingredient_type, expected_counter):
         main_page = MainPage(driver)
@@ -60,8 +60,8 @@ class TestMainPage:
 
         assert counter == expected_counter
 
-    @allure.title('Оформление заказа')
-    @allure.description('Проверка, что залогиненный пользователь может оформить заказ')
+    @allure.title('Проверка, что залогиненный пользователь может оформить заказ')
+    @allure.description('Создаем заказ с тремя ингридиентами, производим авторизацию и проверяем, что заказ оформился')
     def test_auth_user_can_create_order(self, driver, new_user):
         main_page = MainPage(driver)
         main_page.open(main_page.url)

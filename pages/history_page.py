@@ -12,5 +12,5 @@ class HistoryPage(BasePage):
 
     @allure.step('Получаем страничку истории заказов пользователя')
     def check_history_url(self):
-        curr_url = self.get_current_url()
+        curr_url = self.driver.current_url
         return curr_url == self.url

@@ -7,8 +7,9 @@ from pages.recovery_page import RecoveryPage
 
 @allure.feature('Восстановление пароля')
 class TestRecoveryPage:
-    @allure.title('Переход на страницу восстановления пароля')
-    @allure.description('Проверка перехода на страницу восстановления пароля по ссылке «Восстановить пароль»')
+    @allure.title('Проверка перехода на страницу восстановления пароля по ссылке «Восстановить пароль»')
+    @allure.description('На странице авторизации нажимаем ссылку «Восстановить пароль» и проверяем, '
+                        'что отображается страница воостановления пароля')
     def test_go_to_recovery_page(self, driver):
         login_page = LoginPage(driver)
         login_page.open(login_page.url)
@@ -17,8 +18,9 @@ class TestRecoveryPage:
 
         assert recovery_page.check_recovery_page_is_visible()
 
-    @allure.title('Ввод почты для восстановления')
-    @allure.description('Проверка ввода почты на странице восстановления')
+    @allure.title('Проверка ввода почты на странице восстановления')
+    @allure.description('Открываем страницу восстановления, вводим значение почты и проверяем, '
+                        'что это значение соответствует ожидаемому')
     def test_fill_in_email_for_recovery(self, driver, new_user):
         recovery_page = RecoveryPage(driver)
         recovery_page.open(recovery_page.url)
@@ -28,9 +30,10 @@ class TestRecoveryPage:
 
         assert result == expected_result
 
-    @allure.title('Клик по кнопке "восстановить"')
-    @allure.description('Проверка, что после ввода почты и нажатия на кнопку Восстановить происходит '
+    @allure.title('Проверка, что после ввода почты и нажатия на кнопку "Восстановить" происходит '
                         'переход на страницу для ввода пароля')
+    @allure.description('Открываем страницу восстановления, вводим значение почты и нажимаем на кнопку "Восстановить".'
+                        'Проверяем, что отображается страница для ввода нового пароля')
     def test_click_to_recovery_button(self, driver, new_user):
         recovery_page = RecoveryPage(driver)
         recovery_page.open(recovery_page.url)
@@ -39,8 +42,10 @@ class TestRecoveryPage:
 
         assert recovery_page.check_recovery_page_is_visible()
 
-    @allure.title('Клик по кнопке "показать/скрыть пароль"')
-    @allure.description('Проверка, что клик по кнопке показать/скрыть пароль делает поле активным — подсвечивает его')
+    @allure.title('Проверка, что клик по кнопке показать/скрыть пароль делает поле активным — подсвечивает его')
+    @allure.description('Открываем страницу восстановления, вводим значение почты и нажимаем на кнопку "Восстановить".'
+                        'На странице для ввода нового пароля нажимаем на значок "глаз" и проверяем, '
+                        'что изменилось имя класса элемента')
     def test_click_to_eye_button_in_password_field(self, driver, new_user):
         recovery_page = RecoveryPage(driver)
         recovery_page.open(recovery_page.url)

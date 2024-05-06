@@ -47,11 +47,6 @@ class BasePage:
         element = WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located(locator))
         return element
 
-    @allure.step('Получаем ссылку странички')
-    def get_current_url(self):
-        current_url = self.driver.current_url
-        return current_url
-
     @allure.step('Получаем название класса для проверки активности поля')
     def get_class_name(self, locator):
         return self.wait_element_is_visible(locator).get_attribute('class')
